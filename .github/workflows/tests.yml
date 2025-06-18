@@ -37,8 +37,10 @@ jobs:
 
       - name: Start ragflow slim with elastic
         run: |
-          echo -e "\nRAGFLOW_IMAGE=ghcr.io/mcx-projects/ragflow:${{ inputs.IMAGE_TAG }}-slim" >> docker/.env
+          echo -e "\nRAGFLOW_IMAGE=ghcr.io/mcx-projects/ragflow:$IMAGE_TAG-slim" >> docker/.env
           sudo docker compose -f docker/docker-compose.yml up -d
+        env:
+          IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
 
       - name: Run sdk tests against Elasticsearch
         run: |
