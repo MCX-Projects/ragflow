@@ -26,7 +26,9 @@ jobs:
       IMAGE_TAG: "${{ needs.setup.outputs.COMMIT_SHORT_SHA }}"
     secrets: inherit
   run-integration-tests:
-    needs: build-dev-image
+    needs:
+      - setup
+      - build-dev-image
     uses: ./.github/workflows/tests.yml
     with:
         IMAGE_TAG: "${{ needs.setup.outputs.COMMIT_SHORT_SHA }}"
