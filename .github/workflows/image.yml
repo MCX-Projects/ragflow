@@ -54,11 +54,5 @@ jobs:
           annotations: "${{ steps.meta.outputs.annotations }}"
           tags: ${{ env.REGISTRY }}/${{ env.QUALIFIED_RAGFLOW_IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}-slim
           labels: "${{ steps.meta.outputs.labels }}"
-          cache-from: >-
-            type=registry,ref=${{ env.REGISTRY }}/${{
-            env.QUALIFIED_INTEGRATOR_IMAGE_NAME }}:buildcache
-          cache-to: >-
-            type=registry,ref=${{ env.REGISTRY }}/${{
-            env.QUALIFIED_INTEGRATOR_IMAGE_NAME }}:buildcache,mode=max
         env:
           SOURCE_DATE_EPOCH: "${{ steps.timestamp.outputs.TIMESTAMP }}"

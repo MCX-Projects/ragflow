@@ -111,7 +111,7 @@ def is_valid_url(url: str) -> bool:
     if not hostname:
         return False
     try:
-        ip = socket.gethostbyname(hostname)
+        socket.gethostbyname(hostname)
     except socket.gaierror:
         return False
     return True
