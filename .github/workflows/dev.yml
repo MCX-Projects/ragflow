@@ -4,7 +4,10 @@ name: "Build and deploy to dev environment"
     branches:
       - main
 jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
   setup:
+    needs: ci
     runs-on: ubuntu-latest
     outputs:
       COMMIT_SHORT_SHA: "${{ steps.short-sha.outputs.COMMIT_SHORT_SHA }}"
@@ -21,4 +24,10 @@ jobs:
     uses: ./.github/workflows/image.yml
     with:
       IMAGE_TAG: "${{ needs.setup.outputs.COMMIT_SHORT_SHA }}"
+    secrets: inherit
+  run-integration-tests:
+    needs: build-dev-image
+    uses: ./.github/workflows/tests.yml
+    with:
+        IMAGE_TAG: "${{ needs.setup.outputs.COMMIT_SHORT_SHA }}"
     secrets: inherit
